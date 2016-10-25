@@ -4,7 +4,7 @@
 
 Tired of maintaining installation scripts and separately a [Markdown](http://daringfireball.net/projects/markdown/) documentation (to be processed by [MkDocs](http://www.mkdocs.org/) or [Sphinx](http://www.sphinx-doc.org)? You only have a few servers and not want to bring out the [big guns](https://en.wikipedia.org/wiki/Comparison_of_open-source_configuration_management_software)?
 
-So maybe Simple Provisioning System (SPS) is made for you : just write your markdown documentation and excute a part of it.
+So maybe Simple Provisioning System (SPS) is made for you : just write your markdown documentation and execute a part of it.
 
 SPS is simple because :
 
@@ -121,7 +121,7 @@ So I encourage you to fork it and/or transpose it in other languages.
 
 ```no-highlight
 
- THIS SOFTWARE IS PROVIDED 'AS-IS', WITHOUT ANY EXPRESS OR IMPLIEDi
+ THIS SOFTWARE IS PROVIDED 'AS-IS', WITHOUT ANY EXPRESS OR IMPLIED
  WARRANTY. IN NO EVENT WILL THE AUTHORS BE HELD LIABLE FOR ANY DAMAGES
  ARISING FROM THE USE OF THIS SOFTWARE.
  .
