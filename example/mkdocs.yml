@@ -1,0 +1,15 @@
+site_name: Example of sps cards
+theme: readthedocs
+use_directory_urls: false
+pages:
+- Home: index.md
+- 'Example #0':
+    - 'MkDocs': '0/mkdocs.md'
+- 'Example #1':
+    - 'Wekan (full stack)': '1/wekan.md'
+- 'Example #2':
+    - 'README FIRST': '2/README.md'
+    - 'MongoDB': '2/mongodb.md'
+    - 'NodeJS': '2/nodejs.md'
+    - 'Wekan': '2/wekan.md'
+
