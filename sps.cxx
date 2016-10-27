@@ -30,7 +30,7 @@ vector_string_t tokenize_string(const std::string & source_string, const char se
 {
 	vector_string_t l;
 	std::string s;
-	std::istringstream i (source_string.c_str());
+	std::istringstream i (source_string);
 
 	std::getline(i, s, separator);
 
