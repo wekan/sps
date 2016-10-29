@@ -3,6 +3,7 @@
 ## Description
 
 * Wekan "The open-source Trello-like kanban." : [https://wekan.io/](https://wekan.io/)
+* Since the development seems a little bit slow, here is a fork : [Wefork Wekan](https://github.com/wefork/wekan)
 * This documentation respects the [sps formalism](https://github.com/soohwa/sps) (sps card)
 * The purpose of this sps card is only for testing wekan and is obviously not suitable for production.
 * This sps card install a full stack mongodb nodejs wekan.

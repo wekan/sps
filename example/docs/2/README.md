@@ -1,8 +1,14 @@
 # Installation of separate components
 
+## Wekan
+
+* Wekan "The open-source Trello-like kanban." : [https://wekan.io/](https://wekan.io/)
+* Since the development seems a little bit slow, here is a fork : [Wefork Wekan](https://github.com/wefork/wekan)
+* This documentation respects the [sps formalism](https://github.com/soohwa/sps) (sps card)
+
 ## Description
 
-* This is an example of a installation of more generic [sps cards](https://github.com/soohwa/sps).
+* This is an example of a installation of more separated generic [sps cards](https://github.com/soohwa/sps).
 * The purpose of theses sps cards is only for testing wekan and is obviously not suitable for production.
 
 ## Requirements
