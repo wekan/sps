@@ -59,7 +59,7 @@ su - wekan -c 'wget https://nodejs.org/dist/v0.10.48/node-v0.10.48-linux-x64.tar
 apt-get update
 apt-get install -y build-essential
 apt-get clean
-su - wekan -c 'wget https://github.com/wefork/wekan/files/681473/wekan-0.11.0.tar.gz && mkdir wekan && cd wekan && tar xzf ../wekan-0.11.0.tar.gz && cd bundle/programs/server ; export PATH=$PATH:/home/wekan/node-v0.10.48-linux-x64/bin ; npm install'
+su - wekan -c 'wget https://github.com/soohwa/sps/raw/master/example/docs/wekan-0.11.0.tar.gz && mkdir wekan && cd wekan && tar xzf ../wekan-0.11.0.tar.gz && cd bundle/programs/server ; export PATH=$PATH:/home/wekan/node-v0.10.48-linux-x64/bin ; npm install'
 ```
 
 # Start
