@@ -22,7 +22,7 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.56.101
 * Then you can install and start the full stack with :
 
 ```bash
-cat wekan.md | sps 192.168.56.101 "Install" "Start"
+cat wekan.md | sps 192.168.56.101 "Install"
 ```
 
 * So you can access to wekan [http://192.168.56.101:8080/](http://192.168.56.101:8080/)
