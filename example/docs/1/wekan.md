@@ -1,17 +1,16 @@
-# Wefork/Wekan (full stack)
+# Wekan Only-For-Testing (full stack)
 
 ## Description
 
-* Wekan "The open-source Trello-like kanban." : [https://wekan.io/](https://wekan.io/)
-* Since the original development seems halted, here is a fork : [Wefork Wekan](https://github.com/wefork/wekan)
+* Wekan "The open-source web kanban." : [https://wekan.io/](https://wekan.io/)
 * This documentation respects the [sps formalism](https://github.com/soohwa/sps) (sps card)
 * The purpose of this sps card is only for testing wekan and is obviously not suitable for production.
 * This sps card install a full stack mongodb nodejs wekan.
-* These installation was tested on a Debian Wheezy 64 bit inside VirtualBox
+* These installation was tested on a Debian Wheezy 64 bit and [Devuan](https://devuan.org/) Jessie 64 bit inside VirtualBox (yes, the same script with the same packages for both)
 
 ## Requirements
 
-* The host to provision is a minimal installation of a Debian Wheezy 64 bit
+* The host to provision is a minimal installation of a Debian Wheezy 64 bit or a [Devuan](https://devuan.org/) Jessie 64 bit
 * Be sure your compiled binary sps is in the $PATH
 * You already deployed your ssh key with
 
@@ -30,40 +29,30 @@ cat wekan.md | sps 192.168.56.101 "Install" "Start"
 
 # Install
 
-## MongoDB 3.2
-
 ```bash
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.2 main" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
 apt-get update
 apt-get install -y mongodb-org
-service mongod start
+
+wget https://github.com/soohwa/sps/raw/master/example/docs/1/node-v0.10.48-oft_1.0_amd64.deb
+wget https://github.com/soohwa/sps/raw/master/example/docs/1/wekan-oft_0.18-git-1_amd64.deb
+
+dpkg -i node-v0.10.48-oft_1.0_amd64.deb
+dpkg -i wekan-oft_0.18-git-1_amd64.deb
+
 ```
 
-## Create a local user wekan
+# Configuration
+
+Change the default values int the file
 
 ```bash
-adduser --disabled-password --gecos "" wekan
+/etc/default/wefork-oft
 ```
 
-## Nodejs 0.10.48
+And restart the service
 
 ```bash
-su - wekan -c 'wget https://nodejs.org/dist/v0.10.48/node-v0.10.48-linux-x64.tar.gz ; tar xzf node-v0.10.48-linux-x64.tar.gz'
-```
-
-
-## Wefork/Wekan 0.11.0
-
-```bash
-apt-get update
-apt-get install -y build-essential
-apt-get clean
-su - wekan -c 'wget https://github.com/soohwa/sps/raw/master/example/docs/wekan-0.11.0.tar.gz && mkdir wekan && cd wekan && tar xzf ../wekan-0.11.0.tar.gz && cd bundle/programs/server ; export PATH=$PATH:/home/wekan/node-v0.10.48-linux-x64/bin ; npm install'
-```
-
-# Start
-
-```bash
-su - wekan -c 'export PATH=$PATH:/home/wekan/node-v0.10.48-linux-x64/bin ; export MONGO_URL=mongodb://127.0.0.1:27017/wekan ; export ROOT_URL=https://192.168.0.56.101:8080 ; export MAIL_FM=wekan-admin@localhost ; export PORT=8080 ; cd wekan/bundle && node main.js'
+/etc/init.d/wekan-oft restart
 ```
