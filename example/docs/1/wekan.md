@@ -25,8 +25,6 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.56.101
 cat wekan.md | sps 192.168.56.101 "Install"
 ```
 
-* So you can access to wekan [http://192.168.56.101:8080/](http://192.168.56.101:8080/)
-
 # Install
 
 ```bash
@@ -56,3 +54,5 @@ And restart the service
 ```bash
 /etc/init.d/wekan-oft restart
 ```
+
+* So you can access to wekan [http://192.168.56.101:3000/](http://192.168.56.101:3000/) if you changed ROOT_URL='http://192.168.56.101:3000' in the /etc/default/wefork-oft file.
