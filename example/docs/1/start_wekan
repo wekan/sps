@@ -1,8 +1,0 @@
-#!/bin/bash
-export PATH=$PATH:/home/wekan/node-v0.10.40-linux-x64/bin
-export MONGO_URL='mongodb://127.0.0.1:27017/wekan'
-export ROOT_URL='https://192.168.0.121'
-export MAIL_FROM='wekan-admin@localhost'
-export PORT=8080
-cd /home/wekan/wekan-0.10.1/bundle/
-node main.js
