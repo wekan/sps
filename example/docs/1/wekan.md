@@ -6,7 +6,7 @@
 * This documentation respects the [sps formalism](https://github.com/soohwa/sps) (sps card)
 * The purpose of this sps card is only for testing wekan and is obviously not suitable for production.
 * This sps card install a full stack mongodb nodejs wekan.
-* These installation was tested on a Debian Wheezy 64 bit and [Devuan](https://devuan.org/) Jessie 64 bit inside VirtualBox (yes, the same script with the same packages for both)
+* This installation was tested on a Debian Wheezy 64 bit and [Devuan](https://devuan.org/) Jessie 64 bit inside VirtualBox (yes, the same script with the same packages for both)
 
 ## Requirements
 
@@ -43,7 +43,7 @@ dpkg -i wekan-oft_0.18-git-1_amd64.deb
 
 # Configuration
 
-Change the default values int the file
+Change the default values in the file
 
 ```bash
 /etc/default/wefork-oft
@@ -55,4 +55,4 @@ And restart the service
 /etc/init.d/wekan-oft restart
 ```
 
-* So you can access to wekan [http://192.168.56.101:3000/](http://192.168.56.101:3000/) if you changed ROOT_URL='http://192.168.56.101:3000' in the /etc/default/wefork-oft file.
+Now you can access to wekan [http://192.168.56.101:3000/](http://192.168.56.101:3000/) if you changed ROOT_URL='http://192.168.56.101:3000' in the /etc/default/wefork-oft file.
