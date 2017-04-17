@@ -56,3 +56,34 @@ And restart the service
 ```
 
 Now you can access to wekan [http://192.168.56.101:3000/](http://192.168.56.101:3000/) if you changed ROOT_URL='http://192.168.56.101:3000' in the /etc/default/wefork-oft file.
+
+# Behind a reverse proxy
+
+Your reverse proxy must be able to manage websocket : apache 2.2 in wheezy can not so you must install nginx from wheezy-backports (only apache >= 2.4 can).
+
+If the external exposed port is 4444 and the internal port of wekan is 3000 you must set :
+
+```bash
+export ROOT_URL='http://yourserver:4444'
+export PORT=3000
+```
+
+If your reverse proxy manage the SSL certificat for HTTPS, just replace http by https.
+
+```bash
+export ROOT_URL='https://yourserver:4444'
+export PORT=3000
+```
+
+And set at least but (obviously) not sufficient :
+
+```
+server {
+	listen       4444;
+	server_name  yourserver;
+	
+	location {
+		proxy_pass http://127.0.0.1:3000/;
+	}
+}
+```
