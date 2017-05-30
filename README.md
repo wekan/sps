@@ -68,6 +68,11 @@ With:
 
 ## Example
 
+* [MkDocs](https://github.com/wekan/sps/blob/master/example/docs/0/mkdocs.md)
+* [Wekan for Debian Wheezy 64 bit & Devuan Jessie 64 bit](https://github.com/wekan/sps/blob/master/example/docs/1/wekan.md)
+
+## Other example
+
 ### Create a file apache.md :
 
     # Install
