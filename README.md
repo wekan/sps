@@ -132,7 +132,7 @@ apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 echo "deb https://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.2 main" > /etc/apt/sources.list.d/mongodb-org-3.2.list
 
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv FDEB78E7
-echo "deb https://soohwa.github.io/apt/debian wheezy main" > /etc/apt/sources.list.d/wekan-oft.listen
+echo "deb https://soohwa.github.io/apt/debian wheezy main" > /etc/apt/sources.list.d/wekan-oft.list
 
 apt-get update
 apt-get install -y wekan-oft-0
