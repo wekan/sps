@@ -120,10 +120,10 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.56.101
 * Then you can install and start the full stack with :
 
 ```bash
-cat wekan.md | sps 192.168.56.101 "Install"
+cat README.md | sps 192.168.56.101 "Install Wekan"
 ```
 
-# Install
+# Install Wekan
 
 ```bash
 apt-get install apt-transport-https
