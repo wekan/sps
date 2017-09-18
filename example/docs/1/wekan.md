@@ -7,6 +7,7 @@
 * The purpose of this sps card is only for testing wekan and is obviously not suitable for production.
 * This sps card install a full stack mongodb nodejs wekan.
 * This installation was tested on a Debian Wheezy 64 bit and [Devuan](https://devuan.org/) Jessie 64 bit inside VirtualBox (yes, the same script with the same packages for both)
+* Reference : [Wekan Install](https://github.com/soohwa/apt/blob/master/Wekan.md)
 
 ## Requirements
 
@@ -28,16 +29,16 @@ cat wekan.md | sps 192.168.56.101 "Install"
 # Install
 
 ```bash
+apt-get install apt-transport-https
+
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
-echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.2 main" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+echo "deb https://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.2 main" > /etc/apt/sources.list.d/mongodb-org-3.2.list
+
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv FDEB78E7
+echo "deb https://soohwa.github.io/apt/debian wheezy main" > /etc/apt/sources.list.d/wekan-oft.listen
+
 apt-get update
-apt-get install -y mongodb-org
-
-wget https://github.com/soohwa/sps/raw/master/example/docs/1/node-v0.10.48-oft_1.0_amd64.deb
-wget https://github.com/soohwa/sps/raw/master/example/docs/1/wekan-oft_0.18-git-1_amd64.deb
-
-dpkg -i node-v0.10.48-oft_1.0_amd64.deb
-dpkg -i wekan-oft_0.18-git-1_amd64.deb
+apt-get install -y wekan-oft-0
 
 ```
 
@@ -46,13 +47,13 @@ dpkg -i wekan-oft_0.18-git-1_amd64.deb
 Change the default values in the file
 
 ```bash
-/etc/default/wefork-oft
+/etc/default/wefork-oft-0
 ```
 
 And restart the service
 
 ```bash
-/etc/init.d/wekan-oft restart
+/etc/init.d/wekan-oft-0 restart
 ```
 
 Now you can access to wekan [http://192.168.56.101:3000/](http://192.168.56.101:3000/) if you changed ROOT_URL='http://192.168.56.101:3000' in the /etc/default/wefork-oft file.
