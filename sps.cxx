@@ -85,7 +85,7 @@ int get_transfert(std::string host, std::string exec_cmd)
 	vector_string_t param = tokenize_string(exec_cmd, '`');
 	if (param.size() == 4)
 	{
-		std::string cmd = "scp " + SSH_OPTS + " root@" + host + ":\"'" + param[1] + "'\" '" + param[3] + "'";
+		std::string cmd = "scp -p " + SSH_OPTS + " root@" + host + ":\"'" + param[1] + "'\" '" + param[3] + "'";
 		return exit_status(system(cmd.c_str()));
 	}
 	else
@@ -99,7 +99,7 @@ int put_transfert(std::string host, std::string exec_cmd)
 	vector_string_t param = tokenize_string(exec_cmd, '`');
 	if (param.size() == 4)
 	{
-		std::string cmd = "scp " + SSH_OPTS + " '" + param[1] + "' root@" + host + ":\"'" + param[3] + "'\"";
+		std::string cmd = "scp -p " + SSH_OPTS + " '" + param[1] + "' root@" + host + ":\"'" + param[3] + "'\"";
 		return exit_status(system(cmd.c_str()));
 	}
 	else
