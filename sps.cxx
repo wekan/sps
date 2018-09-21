@@ -59,7 +59,7 @@ bool remote_execution(std::string & host, std::string & exec_cmd)
 		write(fd, exec_cmd.c_str(), exec_cmd.length());
 		close(fd);
 		std::string cmd = std::string("") + "cat " + temp + " | ssh -T " + SSH_OPTS + " root@" + host + " 'bash --login'";
-		result = system(cmd.c_str()) > -1;
+		result = system(cmd.c_str()) == 0;
 		unlink(temp);
 	}
 	return result;
@@ -67,7 +67,7 @@ bool remote_execution(std::string & host, std::string & exec_cmd)
 
 bool local_execution(std::string & exec_cmd)
 {
-	return system(exec_cmd.c_str()) > -1;
+	return system(exec_cmd.c_str()) == 0;
 }
 
 bool get_transfert(std::string host, std::string exec_cmd)
@@ -77,7 +77,7 @@ bool get_transfert(std::string host, std::string exec_cmd)
 	if (param.size() == 4)
 	{
 		std::string cmd = "scp " + SSH_OPTS + " root@" + host + ":\"'" + param[1] + "'\" '" + param[3] + "'";
-		result = system(cmd.c_str()) > -1;
+		result = system(cmd.c_str()) == 0;
 	}
 	return result;
 }
@@ -89,7 +89,7 @@ bool put_transfert(std::string host, std::string exec_cmd)
 	if (param.size() == 4)
 	{
 		std::string cmd = "scp " + SSH_OPTS + " '" + param[1] + "' root@" + host + ":\"'" + param[3] + "'\"";
-		result = system(cmd.c_str()) > -1;
+		result = system(cmd.c_str()) == 0;
 	}
 	return result;
 }
