@@ -58,7 +58,7 @@ bool remote_execution(std::string & host, std::string & exec_cmd)
 	{
 		write(fd, exec_cmd.c_str(), exec_cmd.length());
 		close(fd);
-		std::string cmd = std::string("") + "cat " + temp + " | ssh -T " + SSH_OPTS + " root@" + host;
+		std::string cmd = std::string("") + "cat " + temp + " | ssh -T " + SSH_OPTS + " root@" + host + " 'bash --login'";
 		result = system(cmd.c_str()) > -1;
 		unlink(temp);
 	}
