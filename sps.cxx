@@ -1,3 +1,4 @@
+#include <sysexits.h>
 #include <iostream>
 #include <map>
 #include <sstream>
@@ -26,6 +27,11 @@ void use ()
 		;
 }
 
+int exit_status(int result)
+{
+	return (WIFEXITED(result) ? WEXITSTATUS(result) : EXIT_FAILURE);
+}
+
 vector_string_t tokenize_string(const std::string & source_string, const char separator)
 {
 	vector_string_t l;
@@ -48,9 +54,9 @@ vector_string_t tokenize_string(const std::string & source_string, const char se
 	return l;
 }
 
-bool remote_execution(std::string & host, std::string & exec_cmd)
+int remote_execution(std::string & host, std::string & exec_cmd)
 {
-	bool result = false;
+	int result = EXIT_FAILURE;
 	char temp[] = "/tmp/exec-XXXXXX";
 	int fd = mkstemp(temp);
 
@@ -58,40 +64,48 @@ bool remote_execution(std::string & host, std::string & exec_cmd)
 	{
 		write(fd, exec_cmd.c_str(), exec_cmd.length());
 		close(fd);
-		std::string cmd = std::string("") + "cat " + temp + " | ssh -T " + SSH_OPTS + " root@" + host;
-		result = system(cmd.c_str()) > -1;
+		std::string cmd = std::string("") + "ssh -T " + SSH_OPTS + " root@" + host + " 'bash --login' < " + temp;
+		result = system(cmd.c_str());
 		unlink(temp);
+		return exit_status(result);
 	}
-	return result;
+	else
+	{
+		return EX_TEMPFAIL; // 75
+	}
 }
 
-bool local_execution(std::string & exec_cmd)
+int local_execution(std::string & exec_cmd)
 {
-	return system(exec_cmd.c_str()) > -1;
+	return exit_status(system(exec_cmd.c_str()));
 }
 
-bool get_transfert(std::string host, std::string exec_cmd)
+int get_transfert(std::string host, std::string exec_cmd)
 {
-	bool result = false;
 	vector_string_t param = tokenize_string(exec_cmd, '`');
 	if (param.size() == 4)
 	{
 		std::string cmd = "scp " + SSH_OPTS + " root@" + host + ":\"'" + param[1] + "'\" '" + param[3] + "'";
-		result = system(cmd.c_str()) > -1;
+		return exit_status(system(cmd.c_str()));
 	}
-	return result;
+	else
+	{
+		return EX_USAGE; // 64
+	}
 }
 
-bool put_transfert(std::string host, std::string exec_cmd)
+int put_transfert(std::string host, std::string exec_cmd)
 {
-	bool result = false;
 	vector_string_t param = tokenize_string(exec_cmd, '`');
 	if (param.size() == 4)
 	{
 		std::string cmd = "scp " + SSH_OPTS + " '" + param[1] + "' root@" + host + ":\"'" + param[3] + "'\"";
-		result = system(cmd.c_str()) > -1;
+		return exit_status(system(cmd.c_str()));
 	}
-	return result;
+	else
+	{
+		return EX_USAGE; // 64
+	}
 }
 
 int main (int argc, char * argv[])
@@ -99,7 +113,7 @@ int main (int argc, char * argv[])
 	if (argc < 3)
 	{
 		use();
-		return EXIT_FAILURE;
+		return EX_USAGE; // 64
 	}
 	
 	std::string host = argv[1];
@@ -111,13 +125,13 @@ int main (int argc, char * argv[])
 	if (std::cin.rdbuf()->in_avail() <= 0)
 	{
 		std::cerr << "No data on standard input" << std::endl;
-		return EXIT_FAILURE;
+		return EX_NOINPUT; // 65
 	}
 
 	std::string line, section, exec_cmd;
 	char * str = nullptr;
 	int len = 0;
-	bool result = true;
+	int exit_code = 0;
 	bool exec_remote = true;
 	bool in_section = false;
 	bool in_exec = false;
@@ -129,7 +143,7 @@ int main (int argc, char * argv[])
 			in_section = true;
 	};
 	
-	while (!std::cin.eof() && result)
+	while (!std::cin.eof() && exit_code == 0)
 	{
 		getline(std::cin, line);
 		str = (char*) line.c_str();
@@ -155,12 +169,12 @@ int main (int argc, char * argv[])
 				if (strncmp(str, "* GET", 5) == 0)
 				{
 					if (len > 6)
-						result = get_transfert(host, str + 6);
+						exit_code = get_transfert(host, str + 6);
 				}
 				if (strncmp(str, "* PUT", 5) == 0)
 				{
 					if (len > 6)
-						result = put_transfert(host, str + 6);
+						exit_code = put_transfert(host, str + 6);
 				}
 				if (strncmp(str, "* REMOTE_EXECUTION", 18) == 0)
 					exec_remote = true;
@@ -178,7 +192,7 @@ int main (int argc, char * argv[])
 				if (strncmp(str, "```", 3) == 0)
 				{
 					in_exec = false;
-					result = exec_remote ? remote_execution(host, exec_cmd) : local_execution(exec_cmd);
+					exit_code = exec_remote ? remote_execution(host, exec_cmd) : local_execution(exec_cmd);
 				}
 				else
 				{
@@ -188,5 +202,5 @@ int main (int argc, char * argv[])
 		}
 	}
 	
-	return result ? EXIT_SUCCESS : EXIT_FAILURE;
+	return exit_code;
 }
