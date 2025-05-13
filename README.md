@@ -241,17 +241,3 @@ Only the section `# Install` and `# Backup Conf` will be executed, not the `# Re
 I think this program is simple enough to be quickly understood and modified. This program is intentionally small and will remain because it does the job for me and I will not have the time to manage any contributions.
 
 So I encourage you to fork it and/or transpose it in other languages.
-
-# LICENSE
-
-```no-highlight
-
- THIS SOFTWARE IS PROVIDED 'AS-IS', WITHOUT ANY EXPRESS OR IMPLIED
- WARRANTY. IN NO EVENT WILL THE AUTHORS BE HELD LIABLE FOR ANY DAMAGES
- ARISING FROM THE USE OF THIS SOFTWARE.
- .
- Permission is granted to anyone to use this software for any purpose,
- including commercial applications, and to alter it and redistribute it
- freely.
-
-```
